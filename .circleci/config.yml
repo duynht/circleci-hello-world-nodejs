@@ -1,7 +1,11 @@
 version: 2.1
 jobs:
   build:
-    docker:
+    environment:
+      SERVER_IP_ADDRESS: 104.236.101.13
+      DOKKU_APP: circlecidemo
+      TRAVIS: "false"
+  docker:
       - image: circleci/node:7.10
   
     working_directory: ~/repo
@@ -21,3 +25,9 @@ jobs:
           key: v1-dependencies-{{checksum "package.json"}}
 
       - run: yarn test
+      
+      - run: ls -al /bin/sh && sudo rm /bin/sh && sudo ln -s /bin/bash /bin/sh && ls -al /bin/sh
+      - run: echo ${SERVER_IP_ADDRESS}
+      - run: echo -e "Host $SERVER_IP_ADDRESS\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+      # DEPLOY "Staging" App:
+      - run: sh bin/deploy.sh
