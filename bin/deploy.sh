@@ -49,9 +49,9 @@ PUSH="git push dokku $COMMIT_HASH:refs/heads/master" # this should work *everywh
 echo "PUSH => $PUSH"
 $($PUSH)
 
-# Apply the Letsencrypt Wildcard SSL/TLS Certificate to the app
-CERTS="sudo dokku certs:add $DOKKU_APP < /etc/letsencrypt/live/ademo.app/certs.tar"
-$SSH $CERTS
+# # Apply the Letsencrypt Wildcard SSL/TLS Certificate to the app
+# CERTS="sudo dokku certs:add $DOKKU_APP < /etc/letsencrypt/live/ademo.app/certs.tar"
+# $SSH $CERTS
 
 # Reload (restart) nginx so the new app is served:
 RELOAD="systemctl stop nginx && nginx -t && nginx"
